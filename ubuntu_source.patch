@@ -1,0 +1,1785 @@
+--- magnus-20060324.orig/back_end/KB/src/DiffMachineRep.C
++++ magnus-20060324/back_end/KB/src/DiffMachineRep.C
+@@ -12,7 +12,7 @@
+ // * 8/96 Dmitry B. made porting to gcc 2.7.2.
+ //
+ 
+-#include <iostream.h>
++#include <iostream>
+ #include <string.h>
+ #include "Set.h"
+ #include "Word.h"
+--- magnus-20060324.orig/back_end/KB/src/GenMultRep.C
++++ magnus-20060324/back_end/KB/src/GenMultRep.C
+@@ -10,7 +10,7 @@
+ // Revision History:
+ //
+ 
+-#include <iostream.h>
++#include <iostream>
+ #include <string.h>
+ #include "List.h"
+ #include "GenMultRep.h"
+--- magnus-20060324.orig/back_end/KB/src/KBMachineRep.C
++++ magnus-20060324/back_end/KB/src/KBMachineRep.C
+@@ -12,7 +12,7 @@
+ // 12/07/94 @rn Rewrote KBMachineRep::sizeLanguage.
+ 
+ 
+-#include <iostream.h>
++#include <iostream>
+ #include <string.h>
+ #include "Word.h"
+ #include "KBMachineRep.h"
+--- magnus-20060324.orig/back_end/KB/include/DiffMachineRep.h
++++ magnus-20060324/back_end/KB/include/DiffMachineRep.h
+@@ -91,9 +91,9 @@
+   Bool rewrite(Word & w) const;
+   Bool rewrite(Word & w,const WordOrder & word_order) const;
+   GroupDFSA wordAcceptor(const WordOrder & word_order) const;
+-  void DiffMachineRep::buildDifferenceMachine(DiffMachineRep & D,
++  void buildDifferenceMachine(DiffMachineRep & D,
+        const SetOf<Word> & differences,const WordOrder & word_order) const;
+-  void DiffMachineRep::rebuildDifferenceMachine(const WordOrder & word_order);
++  void rebuildDifferenceMachine(const WordOrder & word_order);
+ 
+ 
+   /////////////////////////////////////////////////////////////////////////
+--- magnus-20060324.orig/back_end/KB/include/RKBPackage.h
++++ magnus-20060324/back_end/KB/include/RKBPackage.h
+@@ -20,7 +20,7 @@
+ #ifndef _RKBPackage_H_
+ #define _RKBPackage_H_
+ 
+-#include <iomanip.h>
++#include <iomanip>
+ 
+ #include "BlackBox.h"
+ #include "Vector.h"
+--- magnus-20060324.orig/back_end/KB/include/KBmagPackage.h
++++ magnus-20060324/back_end/KB/include/KBmagPackage.h
+@@ -22,7 +22,7 @@
+ #ifndef _KBmagPackage_H_
+ #define _KBmagPackage_H_
+ 
+-#include <iomanip.h>
++#include <iomanip>
+ 
+ #include "Vector.h"
+ #include "Chars.h"
+--- magnus-20060324.orig/back_end/Equations/include/VectorPtr.h
++++ magnus-20060324/back_end/Equations/include/VectorPtr.h
+@@ -77,7 +77,7 @@
+ #define _VECTOR_PTR_H_
+  
+ 
+-#include <iostream.h>
++#include <iostream>
+ 
+ #include "RefCounter.h"
+ #include "ObjectOf.h"
+--- magnus-20060324.orig/back_end/Map/include/Map.h
++++ magnus-20060324/back_end/Map/include/Map.h
+@@ -52,7 +52,7 @@
+ #ifndef _MAP_H_
+ #define _MAP_H_
+ 
+-#include <iostream.h>
++#include <iostream>
+ 
+ #include "GenericObject.h"
+ #include "DerivedObjectOf.h"
+--- magnus-20060324.orig/back_end/black_boxes/TietzeTrek/TTdriverDebug/FTietzeDoc.C
++++ magnus-20060324/back_end/black_boxes/TietzeTrek/TTdriverDebug/FTietzeDoc.C
+@@ -23,6 +23,9 @@
+ 
+ #include <stdio.h>
+ 
++using std::cin;
++using std::cout;
++
+ FTietzeDoc::FTietzeDoc(void){
+ 	itsTietzeNode=0;
+ 	itsStrings=0;
+--- magnus-20060324.orig/back_end/black_boxes/TietzeTrek/TTdriverDebug/TietzeGlobals.C
++++ magnus-20060324/back_end/black_boxes/TietzeTrek/TTdriverDebug/TietzeGlobals.C
+@@ -28,6 +28,8 @@
+ ofstream fout("/dev/null");
+ #endif
+ 
++using std::cout;
++
+ ostream &memout=cout;		//  defaults for debugging streams
+ ostream &gout=cout;			//	you can reroute these if desired
+ ostream &tout=cout;			//  but you'll have to write some support code.	
+--- magnus-20060324.orig/back_end/black_boxes/TietzeTrek/TTdriverDebug/operators.C
++++ magnus-20060324/back_end/black_boxes/TietzeTrek/TTdriverDebug/operators.C
+@@ -12,11 +12,16 @@
+ #include "GLfunctions.h"
+ 
+ #ifndef Frank_GenuineMac
+-#include <iostream.h>
+-#include <fstream.h>
++#include <iostream>
++#include <fstream>
++using std::ofstream;
++
+ extern ofstream fout;
+ #endif
+ 
++using std::endl;
++using std::ostream;
++
+ extern ostream &gout;
+ extern ostream &memout;
+ 
+--- magnus-20060324.orig/back_end/black_boxes/TietzeTrek/TTdriverDebug/crossTrainer.h
++++ magnus-20060324/back_end/black_boxes/TietzeTrek/TTdriverDebug/crossTrainer.h
+@@ -18,10 +18,13 @@
+ // hidden by using the <= operators instead of the << operators.  In all 
+ // versions, <= streams to both file and windown.
+ 
+-#include <fstream.h>
++#include <fstream>
++using std::ofstream;
++
+ extern ofstream fout;
+ #endif
+ 
++using std::ostream;
+ extern ostream &memout;
+ extern ostream &tout;
+ extern ostream &gout;
+--- magnus-20060324.orig/back_end/black_boxes/TietzeTrek/TTdriverDebug/operators.h
++++ magnus-20060324/back_end/black_boxes/TietzeTrek/TTdriverDebug/operators.h
+@@ -26,7 +26,7 @@
+ typedef FrankStream ostream;
+ 
+ #else
+-#include <iostream.h>
++#include <iostream>
+ #endif
+ 
+ void operator+(FGLvarInterface *v,const GLref& ref);
+@@ -39,6 +39,8 @@
+ // in the SUN version.  The Mac version is controlled dynamically
+ // by the user.
+ 
++using std::ostream;
++
+ ostream& operator<=(ostream& s,const Str255 str);
+ ostream& operator<=(ostream& s,const char* str);
+ ostream& operator<=(ostream& s,const short num);
+--- magnus-20060324.orig/back_end/black_boxes/TietzeTrek/GLink/FGLwalkNode.h
++++ magnus-20060324/back_end/black_boxes/TietzeTrek/GLink/FGLwalkNode.h
+@@ -10,7 +10,7 @@
+ public:
+ 	FGLwalkNode(FObject *aSupervisor,FGLvar *aGLvar);	
+ 	~FGLwalkNode(void);
+-	void FGLwalkNode::xGLwalkNode(void);		
++	void xGLwalkNode(void);		
+ protected:	
+ 	
+ 					
+--- magnus-20060324.orig/back_end/black_boxes/TietzeTrek/GLink/FdebugNode.C
++++ magnus-20060324/back_end/black_boxes/TietzeTrek/GLink/FdebugNode.C
+@@ -4,6 +4,9 @@
+ 
+ #include "FdebugNode.h"
+ #include "FGLstepper.h"
++
++using std::cout;
++
+ FdebugNode::FdebugNode(ostream& s,FGLvar *v)
+ 	:FGLwalkNode(ZERO,v){
+ 	
+--- magnus-20060324.orig/back_end/black_boxes/TietzeTrek/GLink/FBlockManager.h
++++ magnus-20060324/back_end/black_boxes/TietzeTrek/GLink/FBlockManager.h
+@@ -11,9 +11,11 @@
+ #ifdef Frank_GenuineMac
+ #include "operators.h"
+ #else
+-#include <iostream.h>
++#include <iostream>
+ #endif
+ 
++using std::ostream;
++
+ class FGLink;
+ class FBlockManager: public FList{
+ 	private:
+--- magnus-20060324.orig/back_end/black_boxes/TietzeTrek/GLink/GLfunctions.C
++++ magnus-20060324/back_end/black_boxes/TietzeTrek/GLink/GLfunctions.C
+@@ -304,9 +304,8 @@
+ }
+ 
+ #include <math.h>
+-#ifdef THINK_CPLUS
+ #include <stdlib.h>
+-#else
++#ifndef RAND_MAX
+ // RAND_MAX is not defined in <stdlib.h> on the SUN
+ #include <limits.h>
+ #define RAND_MAX LONG_MAX
+--- magnus-20060324.orig/back_end/black_boxes/TietzeTrek/GLink/debugGLink.C
++++ magnus-20060324/back_end/black_boxes/TietzeTrek/GLink/debugGLink.C
+@@ -4,6 +4,7 @@
+ #include "FdebugNode.h"
+ #include "FfoldStepper.h"
+ 
++using std::cout;
+ 
+ ostream& repReg(ostream& s,FGLvarInterface *v){
+ 	if(xDEBUG){
+--- magnus-20060324.orig/back_end/black_boxes/TietzeTrek/TTnodesRsrc/FTT2pnode.h
++++ magnus-20060324/back_end/black_boxes/TietzeTrek/TTnodesRsrc/FTT2pnode.h
+@@ -18,7 +18,7 @@
+ 	FTT2pnode(FGLnode *aSupervisor,FpTree *apTree,FTTpres *currentPres);
+ 	~FTT2pnode(void);	
+ 	static Boolean TT2pFunc(FGLnode *node);
+-	Boolean FTT2pnode::TT2pgo(void);
++	Boolean TT2pgo(void);
+ 	Boolean presGo(void);
+ 	Boolean renumberGo(void);
+ 	virtual void auRevoir(void);
+--- magnus-20060324.orig/back_end/black_boxes/TietzeTrek/Fclasses/FCluster.C
++++ magnus-20060324/back_end/black_boxes/TietzeTrek/Fclasses/FCluster.C
+@@ -3,7 +3,7 @@
+ #include "FtoolBox.h"
+ #include "operators.h"
+ #ifndef Frank_GenuineMac
+-#include <iostream.h>
++#include <iostream>
+ #endif
+ 
+ FCluster::FCluster()
+--- magnus-20060324.orig/back_end/black_boxes/TietzeTrek/Fclasses/FArray.C
++++ magnus-20060324/back_end/black_boxes/TietzeTrek/Fclasses/FArray.C
+@@ -3,7 +3,7 @@
+ #include "operators.h"
+ #ifndef Frank_GenuineMac
+ #include "FtoolBox.h"
+-#include <iostream.h>
++#include <iostream>
+ #endif
+ extern ostream &memout;
+ 
+--- magnus-20060324.orig/back_end/black_boxes/TietzeTrek/GLvarSub/FpTree.C
++++ magnus-20060324/back_end/black_boxes/TietzeTrek/GLvarSub/FpTree.C
+@@ -20,6 +20,7 @@
+ #include "Ftime.h"
+ #include "nodeMsg.h"
+ 
++using std::cout;
+ 
+ // standard methods for FpTree
+ 
+--- magnus-20060324.orig/back_end/black_boxes/orwp/Makefile
++++ magnus-20060324/back_end/black_boxes/orwp/Makefile
+@@ -18,9 +18,9 @@
+ 
+ orwp : orwp.C
+ 	g++ -DDEBUG -g -fno-operator-names -D_G_NO_NRV -Wno-deprecated -O2 -o orwp orwp.C
+-	strip orwp*
++	strip orwp
+ 
+ clean:
+ 	-rm -f orwp
+ 
+-mostlyclean: 
+\ No newline at end of file
++mostlyclean: 
+--- magnus-20060324.orig/back_end/black_boxes/orwp/orwp.C
++++ magnus-20060324/back_end/black_boxes/orwp/orwp.C
+@@ -21,10 +21,16 @@
+ //
+ 
+ 
+-#include <iostream.h>
+-#include <fstream.h>
++#include <iostream>
++#include <fstream>
+ #include <stdlib.h>
+-#include <new.h>
++#include <new>
++
++using std::cerr;
++using std::cin;
++using std::cout;
++using std::endl;
++
+ 
+ // #define INFILE
+ //#define VERBOSE_MODE
+--- magnus-20060324.orig/back_end/black_boxes/homology/src/homology/reduce.c
++++ magnus-20060324/back_end/black_boxes/homology/src/homology/reduce.c
+@@ -22,6 +22,8 @@
+ */
+ 
+ #include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
+ #include <grpinput.h>
+ #include <ndimbdry.h>
+ #include <rewrite.h>
+--- magnus-20060324.orig/back_end/black_boxes/homology/src/homology/chom.c
++++ magnus-20060324/back_end/black_boxes/homology/src/homology/chom.c
+@@ -38,6 +38,7 @@
+ 
+ #include <stdio.h>
+ #include <stdlib.h>
++#include <string.h>
+ #include <grpinput.h>
+ #include <ndimbdry.h>
+ #include <rewrite.h>
+--- magnus-20060324.orig/back_end/black_boxes/homology/src/homology/cbound.c
++++ magnus-20060324/back_end/black_boxes/homology/src/homology/cbound.c
+@@ -46,6 +46,7 @@
+ */
+ 
+ #include <stdio.h>
++#include <stdlib.h>
+ #include <homcommon.h>
+ #include <grpinput.h>
+ #include <2dimbdry.h>
+--- magnus-20060324.orig/back_end/black_boxes/homology/src/homology/chom_stats.c
++++ magnus-20060324/back_end/black_boxes/homology/src/homology/chom_stats.c
+@@ -43,6 +43,7 @@
+ 
+ #include <stdio.h>
+ #include <stdlib.h>
++#include <string.h>
+ #include <time.h>
+ #include <grpinput.h>
+ #include <ndimbdry.h>
+--- magnus-20060324.orig/back_end/black_boxes/homology/src/homology/cboundn.c
++++ magnus-20060324/back_end/black_boxes/homology/src/homology/cboundn.c
+@@ -36,6 +36,8 @@
+ */
+ 
+ #include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
+ #include "homcommon.h"
+ #include "grpinput.h"
+ #include "ndimbdry.h"
+--- magnus-20060324.orig/back_end/black_boxes/tc5/save_ct.c
++++ magnus-20060324/back_end/black_boxes/tc5/save_ct.c
+@@ -3,6 +3,7 @@
+ #include "tc.h"
+ #include "tcyacc.h"
+ #include <stdio.h>
++#include <string.h>
+ char *
+ tc_save(tc_pvar)
+ struct tc_str_vars	*tc_pvar;
+--- magnus-20060324.orig/back_end/black_boxes/tc5/todd_coxeter.c
++++ magnus-20060324/back_end/black_boxes/tc5/todd_coxeter.c
+@@ -1,5 +1,6 @@
+ /* File todd_coxeter.c */
+ #include "todd_coxeter.h"
++#include <stdlib.h>
+ 
+ Void
+ tc_todd_coxeter(restart,tc_pvar)
+--- magnus-20060324.orig/back_end/black_boxes/tc5/print_ct.c
++++ magnus-20060324/back_end/black_boxes/tc5/print_ct.c
+@@ -1,5 +1,8 @@
+ /* File print_ct.c */
+ #include "print_ct.h"
++#include <string.h>
++#include <stdlib.h>
++
+ #define CT_T(i,j)	ct[(i-1) * NCOL + j + 1]
+ Void
+ tc_print_ct(n1, n2, n3, tc_pvar)
+--- magnus-20060324.orig/back_end/black_boxes/tc5/parser.c
++++ magnus-20060324/back_end/black_boxes/tc5/parser.c
+@@ -2,6 +2,8 @@
+ #include "parser.h"
+ #include "y.tab.h"
+ #include "tcyacc.h"
++#include <stdlib.h>
++#include <string.h>
+ extern	FILE    *fin, *fout;
+ extern  Word_pt *w_pt, word_;
+ extern	Gen_stk_type gen_stk[];
+--- magnus-20060324.orig/back_end/black_boxes/tc5/tclex.c
++++ magnus-20060324/back_end/black_boxes/tc5/tclex.c
+@@ -3,6 +3,7 @@
+ #include "string.h"
+ #include "parser.h"
+ #include "stdio.h"
++#include <stdlib.h>
+ extern int lineno;
+ extern FILE *fin;
+ char match[] = {
+--- magnus-20060324.orig/back_end/black_boxes/tc5/lexer.c
++++ magnus-20060324/back_end/black_boxes/tc5/lexer.c
+@@ -3,6 +3,7 @@
+ #include "string.h"
+ #include "parser.h"
+ #include "stdio.h"
++#include <stdlib.h>
+ extern int lineno;
+ extern char *eemalloc(); 
+ extern	Keyword keywords[];
+--- magnus-20060324.orig/back_end/black_boxes/tc5/opt.c
++++ magnus-20060324/back_end/black_boxes/tc5/opt.c
+@@ -4,6 +4,7 @@
+ #include "tcyacc.h"
+ #include "miscellaneous.h"
+ #include "ct.h"
++#include <string.h>
+ #define	MST(i,j)	MST_T[i+i+j-3]
+ tc_mst(tc_pvar)
+ struct  tc_str_vars     *tc_pvar;
+--- magnus-20060324.orig/back_end/black_boxes/tc5/main.c
++++ magnus-20060324/back_end/black_boxes/tc5/main.c
+@@ -12,6 +12,8 @@
+ #include "sys/types.h"
+ #include "miscellaneous.h"
+ #include "parser.h"
++#include <stdlib.h>
++#include <string.h>
+ extern Rel_stk_type *rel_pt;
+ static Word_pt  word_;
+ Word_pt *w_pt;
+--- magnus-20060324.orig/back_end/black_boxes/rkbp/source/fxmem.C
++++ magnus-20060324/back_end/black_boxes/rkbp/source/fxmem.C
+@@ -38,6 +38,11 @@
+   #include <malloc.h>
+ #endif
+ 
++#include <iostream>
++
++using std::cout;
++using std::endl;
++using std::setw;
+ 
+ 
+ /* Each block allocated by malloc is prefixed with a bucket whose
+--- magnus-20060324.orig/back_end/black_boxes/rkbp/source/system.C
++++ magnus-20060324/back_end/black_boxes/rkbp/source/system.C
+@@ -3,6 +3,13 @@
+ 
+ #include "rkbp.h"
+ 
++using std::cin;
++using std::cout;
++using std::endl;
++using std::ifstream;
++using std::setw;
++
++
+ extern  double  hybrid_factor;
+ extern  ulong   mask[33];
+ extern  long    pack_size[12];
+--- magnus-20060324.orig/back_end/black_boxes/rkbp/source/utility.h
++++ magnus-20060324/back_end/black_boxes/rkbp/source/utility.h
+@@ -7,7 +7,9 @@
+ #define  NO                (response() == FALSE)
+ #define  YES               (response() == TRUE)
+ 
++#include <istream>
+ 
++using std::istream;
+ 
+ extern  _boolean_t       bool_t( int );
+ extern  void          compress_file(char *);
+--- magnus-20060324.orig/back_end/black_boxes/rkbp/source/subsystm.h
++++ magnus-20060324/back_end/black_boxes/rkbp/source/subsystm.h
+@@ -283,7 +283,7 @@
+   void hybrid_first_pass();
+   void write( fstream &stream, char *file_name, long num );
+ 
+-  void subsystem::unpack(
++  void unpack(
+     long          length,
+     long          origin,
+     long          bit_pos,
+--- magnus-20060324.orig/back_end/black_boxes/rkbp/source/vector.C
++++ magnus-20060324/back_end/black_boxes/rkbp/source/vector.C
+@@ -3,6 +3,8 @@
+ 
+ #include "rkbp.h"
+ 
++using std::cout;
++using std::endl;
+ 
+ 
+ 
+--- magnus-20060324.orig/back_end/black_boxes/rkbp/source/subsystm.C
++++ magnus-20060324/back_end/black_boxes/rkbp/source/subsystm.C
+@@ -3,6 +3,13 @@
+ 
+ #include "rkbp.h"
+ 
++using std::cin;
++using std::cout;
++using std::endl;
++using std::ifstream;
++using std::setw;
++
++
+ extern  double  hybrid_factor;
+ extern  ulong   mask[33];
+ extern  long    print_level;
+--- magnus-20060324.orig/back_end/black_boxes/rkbp/source/chunk.C
++++ magnus-20060324/back_end/black_boxes/rkbp/source/chunk.C
+@@ -2,6 +2,9 @@
+ 
+ #include "rkbp.h"
+ 
++using std::cout;
++using std::endl;
++
+ 
+ static chunk  *head_chunk = NULL;
+ static long    nfree      = 0;
+--- magnus-20060324.orig/back_end/black_boxes/rkbp/source/rkbp.h
++++ magnus-20060324/back_end/black_boxes/rkbp/source/rkbp.h
+@@ -2,9 +2,9 @@
+ 
+ 
+ #include <stdio.h>
+-#include <iostream.h>
+-#include <iomanip.h>
+-#include <fstream.h>
++#include <iostream>
++#include <iomanip>
++#include <fstream>
+ #include <ctype.h>
+ #include <limits.h>
+ #include <string.h>
+--- magnus-20060324.orig/back_end/black_boxes/rkbp/source/vector.h
++++ magnus-20060324/back_end/black_boxes/rkbp/source/vector.h
+@@ -1,5 +1,16 @@
+ // vector.h
+ 
++#include <fstream>
++#include <istream>
++#include <ostream>
++#include <ios>
++
++using std::fstream;
++using std::istream;
++using std::ostream;
++using std::ios;
++
++
+ /////////////////////////////////////////////////////////////////
+ //
+ //                      vector_char
+--- magnus-20060324.orig/back_end/black_boxes/rkbp/source/dots.C
++++ magnus-20060324/back_end/black_boxes/rkbp/source/dots.C
+@@ -21,11 +21,12 @@
+ 
+ 
+ #include <stdio.h>
+-#include <iostream.h>
++#include <iostream>
+ #include "portable.h"
+ #include "utility.h"
+ #include "dots.h"
+ 
++using std::cout;
+ 
+ // Variables defining the printing of dots.
+ 
+--- magnus-20060324.orig/back_end/black_boxes/rkbp/source/system.h
++++ magnus-20060324/back_end/black_boxes/rkbp/source/system.h
+@@ -1,5 +1,11 @@
+ // system.h
+ 
++#include <fstream>
++#include <ios>
++
++using std::ios;
++using std::ofstream;
++
+ 
+ 
+ enum alphabet_type         {GROUP, MONOID};
+--- magnus-20060324.orig/back_end/black_boxes/rkbp/source/integer.C
++++ magnus-20060324/back_end/black_boxes/rkbp/source/integer.C
+@@ -16,7 +16,7 @@
+ */
+ 
+ 
+-#include <iostream.h>
++#include <iostream>
+ #include <limits.h>
+ #include "portable.h"
+ #include "utility.h"
+--- magnus-20060324.orig/back_end/black_boxes/rkbp/source/array.h
++++ magnus-20060324/back_end/black_boxes/rkbp/source/array.h
+@@ -1,5 +1,8 @@
+ // array.h
+ 
++#include <iostream>
++
++using std::istream;
+ 
+ /*
+    This file defines the following struct's and classes:
+--- magnus-20060324.orig/back_end/black_boxes/rkbp/source/utility.C
++++ magnus-20060324/back_end/black_boxes/rkbp/source/utility.C
+@@ -5,6 +5,10 @@
+ 
+ #include  "rkbp.h"
+ 
++using std::cin;
++using std::cout;
++using std::endl;
++
+ 
+ 
+ // The following are used in the recording of elapsed cpu time.
+--- magnus-20060324.orig/back_end/black_boxes/rkbp/source/rkbp.C
++++ magnus-20060324/back_end/black_boxes/rkbp/source/rkbp.C
+@@ -2,6 +2,12 @@
+ 
+ #include "rkbp.h"
+ 
++using std::cin;
++using std::cout;
++using std::endl;
++using std::setprecision;
++using std::setw;
++
+ 
+ static long        nargs;
+ static char       *args[20];
+--- magnus-20060324.orig/back_end/NilpotentGroup/include/Presentation.h
++++ magnus-20060324/back_end/NilpotentGroup/include/Presentation.h
+@@ -32,7 +32,7 @@
+ #define _PRESENTATION_H_
+ 
+ #include "MalcevSet.h"
+-#include <iostream.h>
++#include <iostream>
+ 
+ //=======================================================================
+ //====================== NilpotentRelator ===============================
+--- magnus-20060324.orig/back_end/NilpotentGroup/include/LCSQuotients.h
++++ magnus-20060324/back_end/NilpotentGroup/include/LCSQuotients.h
+@@ -24,7 +24,7 @@
+ #include "PolyWord.h"
+ #include "AbelianGroup.h"
+ #include "MalcevSet.h"
+-//#include <iostream.h>
++//#include <iostream>
+ 
+ 
+ //========================================================================
+--- magnus-20060324.orig/back_end/FSA/src/DFSAParser.C
++++ magnus-20060324/back_end/FSA/src/DFSAParser.C
+@@ -12,7 +12,7 @@
+ // * 8/96 Dmitry B. made porting to gcc 2.7.2.
+ //
+ 
+-#include <iostream.h>
++#include <iostream>
+ #include <string.h>
+ #include "DFSAParser.h"
+ #include "Chars.h"
+--- magnus-20060324.orig/back_end/FSA/include/DFSAParser.h
++++ magnus-20060324/back_end/FSA/include/DFSAParser.h
+@@ -13,8 +13,8 @@
+ #ifndef _DFSA_PARSER_H_
+ #define _DFSA_PARSER_H_
+ 
+-#include <iostream.h>
+-#include <iomanip.h>
++#include <iostream>
++#include <iomanip>
+ //#include <stdiostream.h>
+ #include "global.h"
+ #include "DFSARep.h"
+--- magnus-20060324.orig/back_end/FSA/include/FSARep.h
++++ magnus-20060324/back_end/FSA/include/FSARep.h
+@@ -20,6 +20,8 @@
+ #include "RefCounter.h"
+ #include "Word.h"
+ 
++using std::cin;
++
+ 
+ class FSARep : public RefCounter {
+ public:
+--- magnus-20060324.orig/back_end/Group/src/ORWordProblem.C
++++ magnus-20060324/back_end/Group/src/ORWordProblem.C
+@@ -14,6 +14,8 @@
+ #include "ORWordProblem.h"
+ #include "MagnusHome.h"
+ 
++using std::ends;
++
+ 
+ ORWordProblem::ORWordProblem(const Word& relator) :
+   theRelator(relator),
+--- magnus-20060324.orig/back_end/Group/src/AbelianEquations.C
++++ magnus-20060324/back_end/Group/src/AbelianEquations.C
+@@ -15,7 +15,7 @@
+ 
+ 
+ #include "AbelianEquations.h"
+-#include <iostream.h>
++#include <iostream>
+ 
+ 
+ AbelianEquationsSolver::AbelianEquationsSolver( const AbelianGroup& a , 
+--- magnus-20060324.orig/back_end/Group/src/Homology.C
++++ magnus-20060324/back_end/Group/src/Homology.C
+@@ -14,6 +14,9 @@
+ #include "Homology.h"
+ #include "MagnusHome.h"
+ 
++using std::ends;
++using std::ws;
++
+ 
+ // #define debug_Homology
+ 
+--- magnus-20060324.orig/back_end/Group/test/debug-AbelianGroup.C
++++ magnus-20060324/back_end/Group/test/debug-AbelianGroup.C
+@@ -1,4 +1,4 @@
+-#include <iostream.h>
++#include <iostream>
+ #include <Integer.h>
+ #include "Map.h"
+ 
+--- magnus-20060324.orig/back_end/Group/test/debug-TietzeTrekker.C
++++ magnus-20060324/back_end/Group/test/debug-TietzeTrekker.C
+@@ -1,6 +1,6 @@
+ // Principal Author: Roger Needham
+ 
+-#include <iostream.h>
++#include <iostream>
+ 
+ #include "TietzeTrekker.h"
+ 
+--- magnus-20060324.orig/back_end/Group/test/debug-RandomAutomorphism.C
++++ magnus-20060324/back_end/Group/test/debug-RandomAutomorphism.C
+@@ -1,4 +1,4 @@
+-#include <iostream.h>
++#include <iostream>
+ #include "RandomAutomorphism.h"
+ #include "FreeGroup.h"
+ 
+--- magnus-20060324.orig/back_end/Group/test/debug-MSCGConjugacyProblem.C
++++ magnus-20060324/back_end/Group/test/debug-MSCGConjugacyProblem.C
+@@ -10,7 +10,7 @@
+ // Revision History:
+ //
+ 
+-#include "iostream.h"
++#include <iostream>
+ #include "MSCGConjugacyProblem.h"
+ #include "NormalRandomWord.h"
+ 
+--- magnus-20060324.orig/back_end/Group/test/debug-EquationParser.C
++++ magnus-20060324/back_end/Group/test/debug-EquationParser.C
+@@ -1,4 +1,4 @@
+-#include <iostream.h>
++#include <iostream>
+ #include "EquationParser.h"
+ #include "FreeGroup.h"
+ 
+--- magnus-20060324.orig/back_end/Group/test/debug-RandomPrimitiveElement.C
++++ magnus-20060324/back_end/Group/test/debug-RandomPrimitiveElement.C
+@@ -1,4 +1,4 @@
+-#include <iostream.h>
++#include <iostream>
+ #include "RandomPrimitiveElement.h"
+ #include "FreeGroup.h"
+ #include "WhiteheadAutomorphisms.h"
+--- magnus-20060324.orig/back_end/Group/include/AbelianEquations.h
++++ magnus-20060324/back_end/Group/include/AbelianEquations.h
+@@ -23,7 +23,7 @@
+ #include "File.h"
+ #include "Vector.h"
+ #include "Word.h"
+-#include <iostream.h>
++#include <iostream>
+ 
+ class AbelianEquationsSolver {
+ 
+--- magnus-20060324.orig/back_end/Group/include/AbelianGroupRep.h
++++ magnus-20060324/back_end/Group/include/AbelianGroupRep.h
+@@ -73,7 +73,7 @@
+   bool havePrimaryDecomposition( ) const { return primeBasisFound; }
+   // True if the primary decomposition has been computed.
+ 
+-  Chars AbelianGroupRep::getFileName( ) const;
++  Chars getFileName( ) const;
+   // Returns name of the file containing new generators.
+   // Calls error() if no file has been created.
+   
+--- magnus-20060324.orig/back_end/AProducts/src/CONDITION.C
++++ magnus-20060324/back_end/AProducts/src/CONDITION.C
+@@ -1,6 +1,11 @@
+-#include <iostream.h>
++#include <iostream>
++#include <stdlib.h>
+ #include "CONDITION.h"
+ 
++using std::cerr;
++using std::endl;
++
++
+ void debugMessage( int msgType, bool condition, const char *condDescription, 
+ 		   const char *fileName, int lineno )
+ {
+--- magnus-20060324.orig/back_end/AProducts/include/AmalgamatedProductParser.h
++++ magnus-20060324/back_end/AProducts/include/AmalgamatedProductParser.h
+@@ -58,7 +58,7 @@
+ 				    Chars& errMesg, int axRelators);
+   
+   void parseFactorsAndRelations(FreeGroup& f1, FreeGroup& f2,
+-				VectorOf<Word>& gens1, VectorOf<Word>& gens1,
++				VectorOf<Word>&, VectorOf<Word>&,
+ 				int maxRelators, Chars& errMesg);
+   
+   AmalgProductOfFreeGroupsRep* parseAPofFreeGroups( Chars& errMesg );
+--- magnus-20060324.orig/back_end/AProducts/include/AP-fixups.h
++++ magnus-20060324/back_end/AProducts/include/AP-fixups.h
+@@ -31,6 +31,9 @@
+ #include "Associations.h"
+ #include "File.h"
+ 
++using std::ends;
++
++
+ struct RelatorConjugate 
+ {
+ 
+--- magnus-20060324.orig/back_end/AProducts/include/SuperGen.h
++++ magnus-20060324/back_end/AProducts/include/SuperGen.h
+@@ -17,7 +17,7 @@
+ #ifndef __SUPERGEN_H__
+ #define __SUPERGEN_H__
+ 
+-#include <iostream.h>
++#include <iostream>
+ #include "global.h"
+ #include "Generator.h"
+ //#include "Vector.h"
+--- magnus-20060324.orig/back_end/AProducts/include/Range.h
++++ magnus-20060324/back_end/AProducts/include/Range.h
+@@ -17,7 +17,11 @@
+ #ifndef __RANGE_H__
+ #define __RANGE_H__
+ 
+-#include <iostream.h>
++#include <iostream>
++
++using std::istream;
++using std::ostream;
++
+ 
+ struct Range {
+ 
+--- magnus-20060324.orig/back_end/experiments/test/HNConjecture.C
++++ magnus-20060324/back_end/experiments/test/HNConjecture.C
+@@ -15,7 +15,7 @@
+ // Next implementation steps:
+ 
+ 
+-#include <iostream.h>
++#include <iostream>
+ 
+ #include "SubgroupGraph.h"
+ 
+--- magnus-20060324.orig/back_end/general/src/BlackBox.C
++++ magnus-20060324/back_end/general/src/BlackBox.C
+@@ -17,6 +17,8 @@
+ #include "List.h"
+ #include <errno.h>
+ 
++using std::ends;
++
+ 
+ ListOf< BlackBox* > BlackBox_known_BBs;
+ //@am Compiler complains about not
+@@ -73,7 +75,7 @@
+     }
+   
+   void* oldsig = (void *) signal(sig, SIG_DFL);
+-  if ((int)oldsig == -1) { perror("Signal"); exit(1); }
++  if (oldsig == SIG_ERR) { perror("Signal"); exit(1); }
+   
+   int err = kill(getpid(), sig);
+   if (err == -1) { perror("Kill"); exit(1); }
+@@ -116,17 +118,17 @@
+ 
+   ptr = (void *) signal(SIGTERM, BlackBox_signal_handler);
+   #ifdef DEBUG
+-    if ((int)ptr == -1) perror("BlackBox::BlackBox: signal");
++    if (ptr == SIG_ERR) perror("BlackBox::BlackBox: signal");
+   #endif
+ 
+   ptr = (void *) signal(SIGINT, BlackBox_signal_handler);
+   #ifdef DEBUG
+-    if ((int)ptr == -1) perror("BlackBox::BlackBox: signal");
++    if (ptr == SIG_ERR) perror("BlackBox::BlackBox: signal");
+   #endif
+ 
+   ptr = (void *) signal(SIGHUP,  BlackBox_signal_handler);
+   #ifdef DEBUG
+-    if ((int)ptr == -1) perror("BlackBox::BlackBox: signal");
++    if (ptr == SIG_ERR) perror("BlackBox::BlackBox: signal");
+   #endif
+ }
+ 
+--- magnus-20060324.orig/back_end/general/src/Chars.C
++++ magnus-20060324/back_end/general/src/Chars.C
+@@ -16,6 +16,10 @@
+ #include "Chars.h"
+ #include <stdio.h>
+ 
++using std::ios;
++using std::streambuf;
++
++
+ //------------------------------------------------------------------------//
+ //---------------------------- CharsRep ----------------------------------//
+ //------------------------------------------------------------------------//
+--- magnus-20060324.orig/back_end/general/test/debug-ObjectOf.C
++++ magnus-20060324/back_end/general/test/debug-ObjectOf.C
+@@ -3,7 +3,7 @@
+ #include "RefCounter.h"
+ #include "ObjectOf.h"
+ 
+-#include <iostream.h>
++#include <iostream>
+ 
+ struct R : RefCounter {
+ 
+--- magnus-20060324.orig/back_end/general/test/debug-PureObject.C
++++ magnus-20060324/back_end/general/test/debug-PureObject.C
+@@ -1,7 +1,7 @@
+ // Principal Author: Stephane Collart
+ 
+ 
+-#include <iostream.h>
++#include <iostream>
+ 
+ #include "PureRep.h"
+ #include "PureObject.h"
+--- magnus-20060324.orig/back_end/general/test/debug-Type.C
++++ magnus-20060324/back_end/general/test/debug-Type.C
+@@ -14,7 +14,7 @@
+ #include "PureRep.h"
+ #include "PureObject.h"
+ 
+-#include <iostream.h>
++#include <iostream>
+ 
+ 
+ struct AR : PureRep {
+--- magnus-20060324.orig/back_end/general/test/debug-Vector.C
++++ magnus-20060324/back_end/general/test/debug-Vector.C
+@@ -1,6 +1,6 @@
+ // Informal tests of class VectorOf<T>
+ 
+-#include <iostream.h>
++#include <iostream>
+ 
+ #include "Vector.h"
+ 
+--- magnus-20060324.orig/back_end/general/include/QuickAssociations.h
++++ magnus-20060324/back_end/general/include/QuickAssociations.h
+@@ -61,7 +61,7 @@
+ #include "List.h"
+ #include "Set.h"
+ 
+-#include <iostream.h>
++#include <iostream>
+ 
+ 
+ //---------------------- class QuickAssociation -------------------------
+--- magnus-20060324.orig/back_end/general/include/BlackBox.h
++++ magnus-20060324/back_end/general/include/BlackBox.h
+@@ -24,14 +24,18 @@
+ #include <unistd.h>
+ #include <string.h>
+ 
+-#include <iostream.h>
++#include <iostream>
+ #include <strstream>
+-#include <fstream.h>
++#include <fstream>
+ //#include <stdiostream.h>
+ 
+ #include "global.h"
+ #include "Chars.h"
+ 
++using std::ifstream;
++using std::ofstream;
++
++
+ extern "C" {
+   char* tempnam(const char*,const char*); // Lib functions SunOS doesn't declare.
+ }
+--- magnus-20060324.orig/back_end/general/include/Cell.h
++++ magnus-20060324/back_end/general/include/Cell.h
+@@ -18,7 +18,7 @@
+ 
+ //#include "Word.h"
+ 
+-#include <iostream.h>
++#include <iostream>
+ #include "IPC.h"
+ //@njz:
+ #include "error.h"
+--- magnus-20060324.orig/back_end/general/include/Type.h
++++ magnus-20060324/back_end/general/include/Type.h
+@@ -76,8 +76,12 @@
+ #define _TYPE_H_
+ 
+ 
+-#include <iostream.h>
+- 
++#include <iostream>
++
++using std::istream;
++using std::ostream;
++
++
+ class Type {
+ public :
+ 
+--- magnus-20060324.orig/back_end/general/include/DCell.h
++++ magnus-20060324/back_end/general/include/DCell.h
+@@ -16,7 +16,7 @@
+ #ifndef _DCELL_H_
+ #define _DCELL_H_
+ 
+-#include <iostream.h>
++#include <iostream>
+ #include "IPC.h"
+ 
+ template<class T> class DCell {
+--- magnus-20060324.orig/back_end/general/include/Timer.h
++++ magnus-20060324/back_end/general/include/Timer.h
+@@ -16,7 +16,7 @@
+ 
+ 
+ #include <sys/time.h>
+-#include <iostream.h>
++#include <iostream>
+ #include <IPC.h>
+ #include "config.h"
+ 
+--- magnus-20060324.orig/back_end/general/include/RandomNumbers.h
++++ magnus-20060324/back_end/general/include/RandomNumbers.h
+@@ -20,7 +20,7 @@
+ #ifndef _RANDOMNUMBERS_H_
+ #define _RANDOMNUMBERS_H_
+ 
+-#include <iostream.h>
++#include <iostream>
+ #include "IPC.h"
+ #include "Timer.h"
+ 
+--- magnus-20060324.orig/back_end/general/include/LogWatcher.h
++++ magnus-20060324/back_end/general/include/LogWatcher.h
+@@ -13,10 +13,14 @@
+ #ifndef _LOG_WATCHER_H_
+ #define _LOG_WATCHER_H_
+ 
+-#include <iostream.h>
++#include <fstream>
++#include <iostream>
+ #include "Chars.h"
+ #include "Timer.h"
+ 
++using std::fstream;
++using std::ios;
++
+ const int WATCHER_BUF_SIZE = 4096;
+ 
+ class LogFileWatcher
+--- magnus-20060324.orig/back_end/general/include/Associations.h
++++ magnus-20060324/back_end/general/include/Associations.h
+@@ -50,7 +50,7 @@
+ #include "List.h"
+ #include "Cell.h"
+ 
+-#include <iostream.h>
++#include <iostream>
+ 
+ 
+ //---------------------- class Association ----------------------------------
+--- magnus-20060324.orig/back_end/general/include/File.h
++++ magnus-20060324/back_end/general/include/File.h
+@@ -30,9 +30,15 @@
+ 
+ 
+ #include <stdio.h>
+-#include <fstream.h>
++#include <sys/stat.h>
++#include <fcntl.h>
++#include <fstream>
+ #include "MagnusHome.h"
+ 
++using std::fstream;
++using std::ios;
++
++
+ // Colors have to be in form RGB,
+ // where R,G or B represents one hexademical digit of red,
+ // green or blue intensity, respectively.
+--- magnus-20060324.orig/back_end/GAP/src/PermutationParser.C
++++ magnus-20060324/back_end/GAP/src/PermutationParser.C
+@@ -24,6 +24,8 @@
+ #include "conversions.h"
+ #include "PermutationParser.h"
+ 
++using std::ends;
++
+ 
+ //--------------------------- PermutationParser -----------------------------//
+ 
+--- magnus-20060324.orig/back_end/GAP/include/Permutation.h
++++ magnus-20060324/back_end/GAP/include/Permutation.h
+@@ -41,7 +41,7 @@
+   //                                                          //
+   //////////////////////////////////////////////////////////////
+ 
+-  Permutation::Permutation( VectorOf<int> v = VectorOf<int>() );
++  Permutation( VectorOf<int> v = VectorOf<int>() );
+   // Initialize the permutation given its bottom row v; v must define
+   // a permutation; there's no check for correctness; if you need to
+   // check use operator >>.
+--- magnus-20060324.orig/back_end/SessionManager/src/Property.C
++++ magnus-20060324/back_end/SessionManager/src/Property.C
+@@ -16,6 +16,10 @@
+ 
+ #include "Property.h"
+ 
++using std::ifstream;
++using std::ofstream;
++
++
+ //@njz: removed
+ //int SetData< QuickAssociation<PropertyType, Chars> >::hashElement(
+ //  const QuickAssociation<PropertyType, Chars>& t) const;
+--- magnus-20060324.orig/back_end/SessionManager/src/ObjectFactory.C
++++ magnus-20060324/back_end/SessionManager/src/ObjectFactory.C
+@@ -10,7 +10,7 @@
+ // Revision History:
+ //
+ 
+-#include <iostream.h>
++#include <iostream>
+ #include "SMFPGroup.h"
+ #include "ObjectFactory.h"
+ //#include "FreeGroup.h"
+--- magnus-20060324.orig/back_end/SessionManager/src/ARCer.C
++++ magnus-20060324/back_end/SessionManager/src/ARCer.C
+@@ -15,6 +15,9 @@
+ 
+ #include "ARCer.h"
+ 
++using std::ios;
++using std::ofstream;
++
+ #define DELETE_IPC_FILES
+ 
+ 
+--- magnus-20060324.orig/back_end/SessionManager/src/FEData.C
++++ magnus-20060324/back_end/SessionManager/src/FEData.C
+@@ -14,6 +14,8 @@
+ #include "FEData.h"
+ #include "SMObject.h"
+ 
++using std::ends;
++
+ 
+ //---------------------------------------------------------------------------//
+ //-------------------------- FEData::(Reps) ---------------------------------//
+--- magnus-20060324.orig/back_end/SessionManager/test/magnus.C
++++ magnus-20060324/back_end/SessionManager/test/magnus.C
+@@ -23,7 +23,7 @@
+ #else
+ # include <sys/filio.h>
+ #endif
+-#include <iostream.h>
++#include <iostream>
+ #include <errno.h>
+ 
+ 
+--- magnus-20060324.orig/back_end/SessionManager/include/RandomDefinitionsGenerator.h
++++ magnus-20060324/back_end/SessionManager/include/RandomDefinitionsGenerator.h
+@@ -18,7 +18,7 @@
+ #include "FPGroup.h"
+ #include "Chars.h"
+ #include "ViewContents.h"
+-#include <iostream.h>
++#include <iostream>
+ 
+ // ------------------------------------  RandomDefinitionGenerate -----------------------------------
+ class RandomDefinitionGenerate
+--- magnus-20060324.orig/back_end/SessionManager/include/OutMessages.h
++++ magnus-20060324/back_end/SessionManager/include/OutMessages.h
+@@ -20,7 +20,7 @@
+ #define _OUTMESSAGES_H_
+ 
+ #include <stdio.h>
+-#include <iostream.h>
++#include <iostream>
+ #include "Chars.h"
+ #include "List.h"
+ #include "ARC.h"
+--- magnus-20060324.orig/back_end/SessionManager/include/OID.h
++++ magnus-20060324/back_end/SessionManager/include/OID.h
+@@ -14,7 +14,7 @@
+ #define _OID_H_
+ 
+ 
+-#include <iostream.h>
++#include <iostream>
+ #include "IPC.h"
+ 
+ 
+--- magnus-20060324.orig/back_end/SessionManager/include/ARCSlotID.h
++++ magnus-20060324/back_end/SessionManager/include/ARCSlotID.h
+@@ -14,7 +14,7 @@
+ #define _ARCSLOTID_H_
+ 
+ 
+-#include <iostream.h>
++#include <iostream>
+ 
+ 
+ //---------------------------------------------------------------------------//
+--- magnus-20060324.orig/back_end/SessionManager/include/SessionManager.h
++++ magnus-20060324/back_end/SessionManager/include/SessionManager.h
+@@ -14,7 +14,7 @@
+ #ifndef _SESSIONMANAGER_H_
+ #define _SESSIONMANAGER_H_
+ 
+-#include <iostream.h>
++#include <iostream>
+ #include "ObjectSmith.h"
+ #include "OutMessages.h"
+ 
+--- magnus-20060324.orig/back_end/SessionManager/include/ViewContents.h
++++ magnus-20060324/back_end/SessionManager/include/ViewContents.h
+@@ -23,7 +23,7 @@
+ 
+ #include "Chars.h"
+ #include "Word.h"
+-#include "iostream.h"
++#include <iostream>
+ #include "ARCSlotID.h"
+ #include "FreeGroup.h"
+ #include "OID.h"
+--- magnus-20060324.orig/back_end/SessionManager/include/FEData.h
++++ magnus-20060324/back_end/SessionManager/include/FEData.h
+@@ -15,7 +15,7 @@
+ #define _FEDATA_H_
+ 
+ 
+-#include <iostream.h>
++#include <iostream>
+ #include "Chars.h"
+ #include "OID.h"
+ #include "ARCSlotID.h"
+--- magnus-20060324.orig/back_end/SessionManager/include/ARCer.h
++++ magnus-20060324/back_end/SessionManager/include/ARCer.h
+@@ -19,12 +19,14 @@
+ #include <stdio.h>
+ #include <signal.h>
+ #include <unistd.h>
+-#include <fstream.h>
+-#include <iostream.h>
++#include <fstream>
++#include <iostream>
+ #include <sys/wait.h>
+ #include "MagnusHome.h"
+ #include "ComputationManager.h"
+ 
++using std::ifstream;
++
+ 
+ // ----------------------------- ARCer ------------------------------------- //
+ 
+--- magnus-20060324.orig/back_end/SessionManager/include/ARC.h
++++ magnus-20060324/back_end/SessionManager/include/ARC.h
+@@ -14,7 +14,9 @@
+ #define _ARC_H_
+ 
+ 
+-#include <iostream.h>
++#include <iostream>
++
++using std::ostream;
+ 
+ 
+ //---------------------------------------------------------------------------//
+--- magnus-20060324.orig/back_end/SMApps/src/QuadEquationSolver.C
++++ magnus-20060324/back_end/SMApps/src/QuadEquationSolver.C
+@@ -17,6 +17,8 @@
+ #include "QEqnSolutions.h"
+ #include "SolutionsEnum.h"
+ 
++using std::ends;
++
+ 
+ // ---------------------- EquationBasicSolutions ------------------------- //
+ 
+--- magnus-20060324.orig/back_end/SMApps/src/IsTrivialProblem.C
++++ magnus-20060324/back_end/SMApps/src/IsTrivialProblem.C
+@@ -19,6 +19,9 @@
+ #include "ORProblems.h"
+ #include "DecomposeInSubgroup.h"
+ 
++using std::ends;
++
++
+ // ------------------------ IsTrivialChecker ------------------------------- //
+ 
+ 
+--- magnus-20060324.orig/back_end/SMApps/src/WordProblem.C
++++ magnus-20060324/back_end/SMApps/src/WordProblem.C
+@@ -24,6 +24,8 @@
+ #include "GeneticProblems.h"
+ #include "FNWP.h"
+ 
++using std::ends;
++
+ 
+ // ------------------------ ORWordProblemARCer ----------------------------- //
+ 
+--- magnus-20060324.orig/back_end/SMApps/include/AbelianProblems.h
++++ magnus-20060324/back_end/SMApps/include/AbelianProblems.h
+@@ -2564,7 +2564,7 @@
+   //                                                                     //
+   /////////////////////////////////////////////////////////////////////////
+ 
+-void IsAbelianWordPowerOfSecondArcer::setArguments(const AbelianGroup& abGroup,
++void setArguments(const AbelianGroup& abGroup,
+                                 const SMWord& w1,const SMWord& w2);
+   // Inherited from ARCer:
+   // bool takeControl( );
+--- magnus-20060324.orig/back_end/Elt/include/Generator.h
++++ magnus-20060324/back_end/Elt/include/Generator.h
+@@ -54,7 +54,7 @@
+   // (the compiler would not understand g.member() if g were a Genref
+   // and member() in Generator).
+     
+-  inline friend int ord( Generator g ) { return g.genrep; }
++  friend int ord( Generator g );
+   // this is the only friend; all other functions in the public interface
+   // of Generator are defined in terms of ord()
+ 
+@@ -105,6 +105,7 @@
+ 
+ };
+ 
++inline int ord( Generator g ) { return g.genrep; }
+ 
+ // functions for manipulating Generators
+ 
+--- magnus-20060324.orig/back_end/Elt/include/Elt.h
++++ magnus-20060324/back_end/Elt/include/Elt.h
+@@ -125,7 +125,7 @@
+ 	 return Elt( look()->inverse() );
+   }
+ 
+-  friend Elt inverse( const Elt& e ) { return e.inverse(); }
++  friend Elt inverse( const Elt& e );
+   // to make it more convenient to take the inverse of something which
+   // can be converted to an Elt
+ 
+@@ -185,6 +185,7 @@
+ 
+ };
+ 
++inline Elt inverse( const Elt& e ) { return e.inverse(); }
+ 
+ //----------------------- Associated Global ------------------------//
+ //------------------------- Functions ------------------------------//
+--- magnus-20060324.orig/back_end/Elt/include/Word.h
++++ magnus-20060324/back_end/Elt/include/Word.h
+@@ -223,13 +223,9 @@
+ 	 return Word( look()->rightMultBy(x) );
+   }
+ 
+-  inline friend Word operator * ( const Generator& x, const Word& w ) {
+-	 return Word( w.look()->leftMultBy(x) );
+-  }
++  friend Word operator * ( const Generator& x, const Word& w );
+ 
+-  inline friend Word operator * ( const Generator& x, const Generator& y ) {
+-	 return Word( new WordRep(x, y) );
+-  }
++  friend Word operator * ( const Generator& x, const Generator& y );
+ 
+   Word operator *= ( const Word& w ) {
+ 	return *this = *this * w;
+@@ -308,6 +304,13 @@
+ 
+ };
+ 
++inline Word operator * ( const Generator& x, const Word& w ) {
++	 return Word( w.look()->leftMultBy(x) );
++}
++
++inline Word operator * ( const Generator& x, const Generator& y ) {
++	 return Word( new WordRep(x, y) );
++}
+ 
+ //--------------------------- Genref ------------------------------//
+ 
+--- magnus-20060324.orig/back_end/libg++/src/Integer.C
++++ magnus-20060324/back_end/libg++/src/Integer.C
+@@ -34,10 +34,15 @@
+ #include <limits.h>
+ //#include <Obstack.h>
+ #include <AllocRing.h>
+-#include <new.h>
++#include <new>
+ #include <builtin.h>
+ #include "Integer.hP"
+ 
++using std::ios;
++using std::istream;
++using std::streambuf;
++
++
+ #undef OK
+ 
+ IntRep _ZeroRep = {1, 0, 1, {0}};
+--- magnus-20060324.orig/back_end/libg++/src/String1.C
++++ magnus-20060324/back_end/libg++/src/String1.C
+@@ -26,11 +26,15 @@
+ #include "std.h"
+ #include <ctype.h>
+ #include <limits.h>
+-#include <new.h>
++#include <new>
+ #include "builtin.h"
+ 
+ #undef OK
+ 
++using std::ios;
++using std::streambuf;
++
++
+ void String::error(const char* msg) const
+ {
+   (*lib_error_handler)("String", msg);
+--- magnus-20060324.orig/back_end/libg++/src/AllocRing.C
++++ magnus-20060324/back_end/libg++/src/AllocRing.C
+@@ -21,7 +21,7 @@
+ #endif
+ #include <std.h>
+ #include <AllocRing.h>
+-#include <new.h>
++#include <new>
+ 
+ AllocRing::AllocRing(int max)
+   :n(max), current(0), nodes(new AllocQNode[max])
+--- magnus-20060324.orig/back_end/libg++/include/String1.h
++++ magnus-20060324/back_end/libg++/include/String1.h
+@@ -23,9 +23,13 @@
+ #endif
+ #define _String_h 1
+ 
+-#include <iostream.h>
++#include <iostream>
+ //#include <Regex.h>
+ 
++using std::istream;
++using std::ostream;
++
++
+ #undef OK
+ 
+ struct StrRep                     // internal String representations
+--- magnus-20060324.orig/back_end/libg++/include/Rational.h
++++ magnus-20060324/back_end/libg++/include/Rational.h
+@@ -71,7 +71,7 @@
+   Rational&        operator *= (const Rational& y);
+   Rational&        operator /= (const Rational& y);
+ 
+-#if defined (__GNUG__) && ! defined (__STRICT_ANSI__)
++#if 0 && defined (__GNUG__) && ! defined (__STRICT_ANSI__)
+   friend Rational  operator <? (const Rational& x, const Rational& y); // min
+   friend Rational  operator >? (const Rational& x, const Rational& y); // max
+ #endif
+@@ -230,7 +230,7 @@
+ inline const Integer& Rational::denominator() const { return den; }
+ inline Rational::operator double() const { return ratio(num, den); }
+ 
+-#if defined (__GNUG__) && ! defined (__STRICT_ANSI__)
++#if 0 && defined (__GNUG__) && ! defined (__STRICT_ANSI__)
+ inline Rational operator <? (const Rational& x, const Rational& y)
+ {
+   if (compare(x, y) <= 0) return x; else return y;
+--- magnus-20060324.orig/back_end/libg++/include/Integer.h
++++ magnus-20060324/back_end/libg++/include/Integer.h
+@@ -23,7 +23,11 @@
+ #endif
+ #define _Integer_h 1
+ 
+-#include <iostream.h>
++#include <iostream>
++
++using std::istream;
++using std::ostream;
++
+ 
+ #undef OK
+ 
+@@ -128,7 +132,7 @@
+ 
+ // (constructive binary operations are inlined below)
+ 
+-#if defined (__GNUG__) && ! defined (__STRICT_ANSI__)
++#if 0 && defined (__GNUG__) && ! defined (__STRICT_ANSI__)
+   friend Integer operator <? (const Integer& x, const Integer& y); // min
+   friend Integer operator >? (const Integer& x, const Integer& y); // max
+ #endif
+@@ -688,7 +692,7 @@
+   return *this;
+ }
+ 
+-#if defined (__GNUG__) && ! defined (__STRICT_ANSI__)
++#if 0 && defined (__GNUG__) && ! defined (__STRICT_ANSI__)
+ inline Integer operator <? (const Integer& x, const Integer& y)
+ {
+   return (compare(x.rep, y.rep) <= 0) ? x : y;
+--- magnus-20060324.orig/back_end/global/global.h
++++ magnus-20060324/back_end/global/global.h
+@@ -21,9 +21,8 @@
+ #define _GLOBAL_H_
+ 
+ 
+-#include <stream.h>
+-#include <iostream.h>
+-#include <fstream.h>
++#include <iostream>
++#include <fstream>
+ //@njz
+ //#include <strstream.h>
+ #include <sstream>
+--- magnus-20060324.orig/back_end/global/ObjectOf.h
++++ magnus-20060324/back_end/global/ObjectOf.h
+@@ -56,7 +56,7 @@
+ #define _OBJECT_OF_H_
+ 
+ 
+-#include <iostream.h>
++#include <iostream>
+ #include "RefCounter.h"
+ 
+ 
+--- magnus-20060324.orig/back_end/global/error.h
++++ magnus-20060324/back_end/global/error.h
+@@ -10,6 +10,12 @@
+ #ifndef _ERROR_H_
+ #define _ERROR_H_
+ 
++using std::cerr;
++using std::cout;
++using std::endl;
++using std::flush;
++
++
+ #ifdef __GNUG__
+ //@jml This tells g++ that error does not return.
+ inline volatile void error(const char *msg) {
+--- magnus-20060324.orig/back_end/global/Trichotomy.h
++++ magnus-20060324/back_end/global/Trichotomy.h
+@@ -23,6 +23,8 @@
+ 
+ #define ALLOW_BOGUS_CONVERSIONS
+ 
++using std::ostream;
++
+ 
+ //------------------------------------------------------------------------//
+ //----------------------------- Trichotomy -------------------------------//
+--- magnus-20060324.orig/back_end/global/IPC.h
++++ magnus-20060324/back_end/global/IPC.h
+@@ -16,6 +16,9 @@
+ #ifndef _IPC_H_
+ #define _IPC_H_
+ 
++using std::istream;
++using std::ostream;
++
+ 
+ // ------------------------- Output operators ------------------------------ //
+ 
+--- magnus-20060324.orig/back_end/Genetic/src/GAIsPartOfBasis.C
++++ magnus-20060324/back_end/Genetic/src/GAIsPartOfBasis.C
+@@ -22,6 +22,9 @@
+ #include "File.h"
+ #include "conversions.h"
+ 
++using std::ofstream;
++
++
+ // --------------------------- GAIsPartOfBasis ---------------------------- //
+ 
+ GAIsPartOfBasis::GAIsPartOfBasis( const FreeGroup& G, const ACConfig& config,
+--- magnus-20060324.orig/back_end/Genetic/src/GAEquationSolver.C
++++ magnus-20060324/back_end/Genetic/src/GAEquationSolver.C
+@@ -21,6 +21,8 @@
+ #include "Roulette.h"
+ #include "File.h"
+ 
++using std::ofstream;
++
+ 
+ // -------------------------- GAEquationSolver ----------------------------- //
+   
+--- magnus-20060324.orig/back_end/Packages/src/PackagesData.C
++++ magnus-20060324/back_end/Packages/src/PackagesData.C
+@@ -126,8 +126,13 @@
+     cfgFileName[l-3]='c';cfgFileName[l-2]='f';cfgFileName[l-1]='g';
+     
+     cfgFile.open(cfgFileName,  ios::in | ios::out);
+-    if (!cfgFile)
+-      error("Can't open the database configuration file");
++    if (!cfgFile) {
++      // Perhaps the file is installed read-only?
++      cfgFile.clear();
++      cfgFile.open(cfgFileName,  ios::in);
++      if (!cfgFile)
++        error("Can't open the database configuration file");
++    }
+ 
+     if (!cfgFile.eof())
+       //@njz
+@@ -139,8 +144,13 @@
+     error("Does not look like a database file.");
+   
+   dataFile.open(f_name, ios::in | ios::out);
+-  if (!dataFile)
+-    error("Can't open the database");
++  if (!dataFile) {
++    // Perhaps the file is installed read-only?
++    dataFile.clear();
++    dataFile.open(f_name, ios::in);
++    if (!dataFile)
++      error("Can't open the database");
++  }
+ }
+ 
+ template <class T>
+@@ -250,8 +260,12 @@
+   tmp_out.close();
+   
+   dataFile.open(fileName, ios::in | ios::out);
+-  if (!dataFile)
+-    error("Can't open the database");
++  if (!dataFile) {
++    // Perhaps the file is installed read-only?
++    dataFile.open(fileName, ios::in);
++    if (!dataFile)
++      error("Can't open the database");
++  }
+ }
+ 
+ 
+--- magnus-20060324.orig/back_end/Packages/include/PackagesSMApps.h
++++ magnus-20060324/back_end/Packages/include/PackagesSMApps.h
+@@ -7,6 +7,8 @@
+ #ifndef _SMAppsPackages_h_
+ #define _SMAppsPackages_h_
+ 
++using std::streampos;
++
+ 
+ // ------------------------- PackageBlackBox --------------//
+ 
+--- magnus-20060324.orig/back_end/Packages/include/PackagesData.h
++++ magnus-20060324/back_end/Packages/include/PackagesData.h
+@@ -1,4 +1,4 @@
+-#include <fstream.h>
++#include <fstream>
+ #include "Chars.h"
+ #include "Menu.h"
+ #include "SMFPGroup.h"
+--- magnus-20060324.orig/back_end/Packages/include/PackagesObject.h
++++ magnus-20060324/back_end/Packages/include/PackagesObject.h
+@@ -1,4 +1,4 @@
+-#include <fstream.h>
++#include <fstream>
+ #include "Chars.h"
+ #include "Menu.h"
+ #include "FEData.h"
+--- magnus-20060324.orig/back_end/Subgroup/src/DecomposeInSubgroup.C
++++ magnus-20060324/back_end/Subgroup/src/DecomposeInSubgroup.C
+@@ -846,7 +846,7 @@
+ }
+ 
+ /*
+-#include <iostream.h>
++#include <iostream>
+ //#include "CONDITION.h"
+ 
+ void debugMessage( int msgType, bool condition, const char *condDescription, 
+--- magnus-20060324.orig/back_end/Subgroup/test/debug-Subgroup.C
++++ magnus-20060324/back_end/Subgroup/test/debug-Subgroup.C
+@@ -12,7 +12,7 @@
+ 
+ #include "Subgroup.h"
+ 
+-#include <iostream.h>
++#include <iostream>
+ 
+ main ( ) {
+ 
+--- magnus-20060324.orig/back_end/Polynomial/include/Polynomial.h
++++ magnus-20060324/back_end/Polynomial/include/Polynomial.h
+@@ -320,7 +320,7 @@
+   {
+     value += key;
+     if( value.getCoefficient() == R(0) )
+-      remove(value);
++      PBTree< Monomial<R>, Monomial<R> >::remove(value);
+     //R c = value.getCoefficient();
+     //value.setCoefficient( c + key.getCoefficient() ); 
+   } 
+--- magnus-20060324.orig/doc/manual/include/cvs_tutorial.tex
++++ magnus-20060324/doc/manual/include/cvs_tutorial.tex
+@@ -67,7 +67,7 @@
+ The contents of \$CVSROOT are to be manipulated by {\bf cvs} only.
+ 
+ NO ONE, UNDER ANY CIRCUMSTANCES OF ANY KIND WHATSOEVER, IS TO DIRECTLY
+-ALTER OR REMOVE ANY FILE OR DIRECTORY IN OR BELOW $CVSROOT.
++ALTER OR REMOVE ANY FILE OR DIRECTORY IN OR BELOW \$CVSROOT.
+ 
+ \end{quotation}
+ 
+--- magnus-20060324.orig/experiments/src/H.Neumann_conjecture2.C
++++ magnus-20060324/experiments/src/H.Neumann_conjecture2.C
+@@ -15,7 +15,7 @@
+ // Next implementation steps:
+ 
+ 
+-#include <iostream.h>
++#include <iostream>
+ 
+ #include "SubgroupGraph.h"
+ 
+--- magnus-20060324.orig/experiments/src/H.Neumann_conjecture.C
++++ magnus-20060324/experiments/src/H.Neumann_conjecture.C
+@@ -15,7 +15,7 @@
+ // Next implementation steps:
+ 
+ 
+-#include <iostream.h>
++#include <iostream>
+ 
+ #include "SubgroupGraph.h"
+ 

@@ -1,0 +1,11 @@
+--- origsrc/magnus/Makefile	2005-08-07 02:24:01.000000000 -0400
++++ src/magnus/Makefile	2013-09-13 11:20:07.994183200 -0400
+@@ -30,7 +30,7 @@ export CC = g++
+ 
+ #@njz
+ #export DEFINE = -DHAVE_UNISTD_H -fno-operator-names -D_G_NO_NRV
+-export DEFINE = -fno-operator-names -D_G_NO_NRV -Wno-deprecated
++export DEFINE = -fno-operator-names -D_G_NO_NRV -Wno-deprecated -fpermissive
+ #
+ export CFLAGS = $(DEBUG) $(DEFINE)
+ 

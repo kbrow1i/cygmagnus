@@ -1,0 +1,6 @@
+--- origsrc/magnus/front_end/magnus.in	2006-03-24 14:49:26.000000000 -0500
++++ src/magnus/front_end/magnus.in	2013-09-14 12:21:05.035844400 -0400
+@@ -1,2 +1,2 @@
+ #!/bin/sh
+-%WISH% -f $0.tcl
++%WISH% -f /usr/share/magnus/front_end/magnus.tcl

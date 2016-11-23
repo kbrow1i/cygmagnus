@@ -1,0 +1,65 @@
+NAME="magnus"
+VERSION=20060324
+RELEASE=1
+HOMEPAGE="http://sourceforge.net/projects/magnus/"
+CATEGORY="Math"
+SUMMARY="Computational group theory software with GUI"
+DESCRIPTION="The MAGNUS computational group theory package is an innovative
+symbolic algebra package providing facilities for doing calculations
+in and about infinite groups.  Almost all symbolic algebra systems are
+oriented toward finite computations that are guaranteed to produce
+answers, given enough time and resources.  By contrast, MAGNUS is
+concerned with experiments and computations on infinite groups which
+in some cases are known to terminate, while in others are known to be
+generally recursively unsolvable.
+
+MAGNUS features an intuitive graphical user interface, facilities for
+running different algorithms on the same problem in parallel,
+generation of approximations for working on otherwise infeasible
+problems, genetic algorithms and a plug-in package manager."
+
+SRC_URI="http://archive.ubuntu.com/ubuntu/pool/universe/m/magnus/magnus_20060324.orig.tar.gz"
+
+SRC_DIR="magnus"
+
+# PATCH_URI="http://archive.ubuntu.com/ubuntu/pool/universe/m/magnus/magnus_20060324-5.2ubuntu1.diff.gz"
+
+PATCH_URI="ubuntu_source.patch ubuntu_configure.patch permissive.patch manual.patch start_script.patch"
+
+DOCS="doc/PackagesManual.ps"
+
+src_compile() {
+    lndirs
+    cd ${B}
+    ./configure
+    make
+    cd doc/manual
+    make
+}
+
+src_install() {
+    MAGNUS_DIR="/usr/share/magnus"
+    cd ${B}
+    exeinto ${MAGNUS_DIR}/front_end
+    doexe front_end/magnus
+    dodir /usr/bin
+    dosym ${MAGNUS_DIR}/front_end/magnus /usr/bin/magnus
+    exeinto ${MAGNUS_DIR}/back_end/SessionManager/test/bin
+    doexe back_end/SessionManager/test/bin/magnus.exe
+    for f in $(find back_end/black_boxes -type f -perm -100)
+    do
+	exeinto ${MAGNUS_DIR}/$(dirname ${f})
+	doexe ${f}
+    done
+    rm -f ${D}${MAGNUS_DIR}/back_end/black_boxes/ace/*.ps
+    rm -rf ${D}${MAGNUS_DIR}/back_end/black_boxes/homology/src
+    rm -rf ${D}${MAGNUS_DIR}/back_end/black_boxes/kbmag/gap
+    rm -rf ${D}${MAGNUS_DIR}/back_end/black_boxes/TietzeTrek/DEFUNCT
+    docinto manual
+    dodoc doc/manual/magnus.pdf
+    cd ${S}
+    cp -a front_end packages inventory ${D}${MAGNUS_DIR}
+    pushd ${D}${MAGNUS_DIR}/front_end
+    rm -f magnus.in .cvsignore
+    popd
+}
